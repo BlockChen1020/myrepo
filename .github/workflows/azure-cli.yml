@@ -26,4 +26,4 @@ jobs:
         inlineScript: |
             kubectl get pod -n seasalt
             kubectl get svc -n seasalt
-          kubectl get ingress -n seasalt
+            kubectl get ingress -n seasalt
