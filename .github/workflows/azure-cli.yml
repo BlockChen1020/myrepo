@@ -19,12 +19,9 @@ jobs:
       uses: azure/CLI@v1
       with:
         azcliversion: 2.0.72
-        inlineScript: az account show
-
-    - uses: azure/setup-kubectl@v1
-      id: install
-      with:
         inlineScript: |
+          az account show
+          az aks install-cli
           kubectl get pod -n seasalt
           kubectl get svc -n seasalt
           kubectl get ingress -n seasalt
