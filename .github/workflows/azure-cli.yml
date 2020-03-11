@@ -11,6 +11,11 @@ jobs:
   Azure-CD-test:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@master
+    - run: |
+        ls -al
+        pwd
+        
     - name: AzureLogin
       uses: azure/login@v1
       with:
@@ -19,11 +24,6 @@ jobs:
     #- run: |
     #    docker build . -t contoso.azurecr.io/k8sdemo:${{ github.sha }}
     #    docker push contoso.azurecr.io/k8sdemo:${{ github.sha }}
-    
-    - uses: actions/checkout@master
-    - run: |
-        ls -al
-        pwd
         
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1
