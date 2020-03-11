@@ -24,7 +24,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v2
       with:
         image: blockchen1020/test
-        tag: API_VERSION
+        tag: ${API_VERSION}
         registry: docker.io
         dockerfile: k8s/test-dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
