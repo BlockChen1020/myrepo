@@ -11,8 +11,12 @@ jobs:
   Login_Azure:
     runs-on: ubuntu-latest
     steps:
-    
-    - name: Azure Login
+    - uses: actions/checkout@master
+    - run: |
+        ls -al
+        pwd
+        
+    - name: AzureTest
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -20,8 +24,7 @@ jobs:
     #- run: |
     #    docker build . -t contoso.azurecr.io/k8sdemo:${{ github.sha }}
     #    docker push contoso.azurecr.io/k8sdemo:${{ github.sha }}
-    - run: |
-        ls -al
+    
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1
       with:
