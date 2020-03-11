@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ngchat-nginx-ingress-test
+  namespace: seasalt
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /documentation/$2
+    nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+spec:
+  rules:
+  - host: ngchat.98b8e747c54b4408850b.japaneast.aksapp.io
+    http:
+      paths:
+      - backend:
+          serviceName: ngchat-api
+          servicePort: 7500
+        path: /test(/|$)(.*)
