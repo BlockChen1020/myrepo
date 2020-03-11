@@ -27,7 +27,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v2
       with:
         image: blockchen1020/test
-        tag: ${{INPUT_V}}
+        tag: ${{env.GITHUB_RUN_NUMBER}}
         registry: docker.io
         dockerfile: k8s/test-dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
