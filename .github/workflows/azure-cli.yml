@@ -11,29 +11,9 @@ jobs:
   Azure-CD-test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - run: |
-        ls -al
-        pwd
-        
-    - name: AzureLogin
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
-    #- run: |
-    #    docker build . -t contoso.azurecr.io/k8sdemo:${{ github.sha }}
-    #    docker push contoso.azurecr.io/k8sdemo:${{ github.sha }}
-        
-    # Set the target AKS cluster.
-    - uses: Azure/aks-set-context@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: ngchat-dev-cluster
-        resource-group: ngchat-dev-group
-
-    - uses: Azure/k8s-deploy@v1
-      with:
-        namespace: 'seasalt'
-        manifests: |
-          k8s/test-ingress.yml
+      - name: CheckoutRepo
+        uses: actions/checkout@master
+      - name: GetVersion
+        run: |
+          version=`cat .VERSION`
+          echo ${version}
