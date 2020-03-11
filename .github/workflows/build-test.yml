@@ -19,12 +19,13 @@ jobs:
       run: |
         API_VERSION=`cat k8s/.VERSION`
         echo ${API_VERSION}
+        env
           
     - name: BuildImages
       uses: mr-smithers-excellent/docker-build-push@v2
       with:
         image: blockchen1020/test
-        tag: ${{API_VERSION}}
+        tag: ${{env.API_VERSION}}
         registry: docker.io
         dockerfile: k8s/test-dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
