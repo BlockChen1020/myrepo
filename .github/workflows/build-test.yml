@@ -16,16 +16,18 @@ jobs:
         ls -al
     
     - name: GetVersion
+      env:
+        API_VERSION: ${{env.APISRV_VERSION}}
       run: |
         API_VERSION=`cat k8s/.VERSION`
-        echo ${API_VERSION}
+        echo ${APISRV_VERSION}
         env
           
     - name: BuildImages
       uses: mr-smithers-excellent/docker-build-push@v2
       with:
         image: blockchen1020/test
-        tag: ${{env.API_VERSION}}
+        tag: ${{env.APISRV_VERSION}}
         registry: docker.io
         dockerfile: k8s/test-dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
