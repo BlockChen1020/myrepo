@@ -1,0 +1,33 @@
+on:
+  push:
+    branches: 
+    - master
+
+name: build-test
+
+jobs:
+  Build-stage:
+    runs-on: ubuntu-latest
+    steps:
+    - name: CheckoutRepo
+      uses: actions/checkout@master
+      
+    - run: |
+        ls -al
+    
+    - name: GetVersion
+      run: |
+        API_VERSION=`cat k8s/.VERSION`
+        echo ${API_VERSION}
+          
+    - name: BuildImages
+      uses: mr-smithers-excellent/docker-build-push@v2
+      with:
+        image: blockchen1020/test
+        tag: API_VERSION
+        registry: docker.io
+        dockerfile: k8s/test-dockerfile
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    
