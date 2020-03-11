@@ -17,17 +17,17 @@ jobs:
     
     - name: GetVersion
       env:
-        NGCHATAPI_VERSION: ${{env.NGCHATAPI_VERSION}}
+        V: ${{env.V}}
       run: |
-        NGCHATAPI_VERSION=`cat k8s/.VERSION`
-        echo ${NGCHATAPI_VERSION}
+        V=`cat k8s/.VERSION`
+        echo ${V}
         env
           
     - name: BuildImages
       uses: mr-smithers-excellent/docker-build-push@v2
       with:
         image: blockchen1020/test
-        tag: ${{env.NGCHATAPI_VERSION}}
+        tag: ${{env.V}}
         registry: docker.io
         dockerfile: k8s/test-dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
