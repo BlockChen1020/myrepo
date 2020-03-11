@@ -23,5 +23,5 @@ jobs:
       run: |
         v=`cat k8s/.VERSION`
         echo ${v}
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/test:${v} .
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/test:${v} -f k8s/test-dockerfile .
         docker push ${{ secrets.DOCKER_USERNAME }}/test:${v}
