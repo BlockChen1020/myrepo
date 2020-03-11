@@ -34,5 +34,6 @@ jobs:
 
     - uses: Azure/k8s-deploy@v1
       with:
+        namespace: 'seasalt'
         manifests: |
           k8s/test-ingress.yml
