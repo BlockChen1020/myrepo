@@ -20,7 +20,8 @@ jobs:
     #- run: |
     #    docker build . -t contoso.azurecr.io/k8sdemo:${{ github.sha }}
     #    docker push contoso.azurecr.io/k8sdemo:${{ github.sha }}
-      
+    - run: |
+        ls -al
     # Set the target AKS cluster.
     - uses: Azure/aks-set-context@v1
       with:
