@@ -17,17 +17,17 @@ jobs:
     
     - name: GetVersion
       env:
-        V: ${{env.V}}
+        v: ${{env.v}}
       run: |
-        V=`cat k8s/.VERSION`
-        echo ${V}
+        v=`cat k8s/.VERSION`
+        echo ${v}
         env
           
     - name: BuildImages
       uses: mr-smithers-excellent/docker-build-push@v2
       with:
         image: blockchen1020/test
-        tag: ${{env.V}}
+        tag: ${{INPUT_V}}
         registry: docker.io
         dockerfile: k8s/test-dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
