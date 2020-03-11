@@ -1,12 +1,14 @@
 # File: .github/workflows/workflow.yml
 
-on: [push]
+on:
+  push:
+    branches: 
+    - master
 
-name: AzureCLISample
+name: AKS_CD_script
 
 jobs:
-
-  build-and-deploy:
+  Login_Azure:
     runs-on: ubuntu-latest
     steps:
     
@@ -15,20 +17,18 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
-    #- name: Azure CLI script
-    #  uses: azure/CLI@v1
-    #  with:
-    #    azcliversion: 2.0.72
-    #    inlineScript: |
-    #      az account show
-    #      az aks install-cli
-          
-    - name: azure/setup-kubectl@v1
-      uses: azure/setup-kubectl@v1
-      id: install
+    #- run: |
+    #    docker build . -t contoso.azurecr.io/k8sdemo:${{ github.sha }}
+    #    docker push contoso.azurecr.io/k8sdemo:${{ github.sha }}
       
-    - name: exec-kubectl
-      run:
-          kubectl get pod -n seasalt
-          kubectl get svc -n seasalt
-          kubectl get ingress -n seasalt
+    # Set the target AKS cluster.
+    - uses: Azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: seasalt
+        resource-group: ngchat-dev-group
+
+    - uses: Azure/k8s-deploy@v1
+      with:
+        manifests: |
+          k8s/test-ingress.yml
