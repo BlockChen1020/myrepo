@@ -1,0 +1,9 @@
+FROM redis:4.0.6-alpine
+
+MAINTAINER Block Chen <block.chen@thinkpower-info.com>
+
+COPY local-storage/redis-data/appendonly.aof /data
+
+EXPOSE 6379
+
+CMD redis-server --appendonly yes
