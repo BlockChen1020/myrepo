@@ -25,3 +25,8 @@ jobs:
       run: |
         pip install pytest
         pytest -v
+
+    - name: Check typing with pytype
+    - run: |
+        pip install pytype
+        pytype /home/runner/work/myrepo
