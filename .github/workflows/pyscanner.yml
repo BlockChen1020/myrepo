@@ -33,5 +33,6 @@ jobs:
 
     - name: Check typing with pytype
       run: |
+        pip install wheel
         pip install pytype
         pytype /home/runner/work/myrepo/tests
