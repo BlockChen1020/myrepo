@@ -35,4 +35,4 @@ jobs:
       run: |
         pip install wheel
         pip install pytype
-        pytype input /home/runner/work/myrepo/tests
+        pytype -P /home/runner/work/myrepo/tests input .
