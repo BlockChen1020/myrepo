@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: CheckoutRepo
+      uses: actions/checkout@master     
+    - run: |
+        ls -al
+        pwd
     - uses: actions/checkout@v2
     - name: Set up Python 3.6
       uses: actions/setup-python@v1
@@ -29,4 +34,4 @@ jobs:
     - name: Check typing with pytype
     - run: |
         pip install pytype
-        pytype /home/runner/work/myrepo
+        pytype /home/runner/work/myrepo/tests
