@@ -54,10 +54,10 @@ jobs:
       run: |
         export PYTHONPATH=/home/runner/.cache/pip
         export PATH=/home/runner/.local/bin:$PATH
-        pytest -v
+        python -m pytest -v
 
     - name: Check typing with pytype
       run: |
         export PYTHONPATH=/home/runner/.cache/pip
         export PATH=/home/runner/.local/bin:$PATH
-        pytype -P /home/runner/work/myrepo/myrepo/tests input /home/runner/work/myrepo/myrepo/tests
+        python -m pytype -P /home/runner/work/myrepo/myrepo/tests input /home/runner/work/myrepo/myrepo/tests
