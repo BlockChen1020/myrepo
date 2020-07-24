@@ -33,7 +33,6 @@ jobs:
         export PATH=/home/runner/.local/bin:$PATH
         export PYTHONPATH=/home/runner/.cache/pip
         pip install wheel
-        pip install ninja
         pip install -t /home/runner/.cache/pip -r requirements.txt 
 
     - name: show local pip
@@ -43,22 +42,19 @@ jobs:
     - name: Run python
       run: |
         export PYTHONPATH=/home/runner/.cache/pip
-        export PATH=/home/runner/.local/bin:$PATH
         python tests/test_fake.py
 
     - name: Lint with flake8
       run: |
         export PYTHONPATH=/home/runner/.cache/pip
-        export PATH=/home/runner/.local/bin:$PATH
         python -m flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
     - name: Test with pytest
       run: |
         export PYTHONPATH=/home/runner/.cache/pip
-        export PATH=/home/runner/.local/bin:$PATH
         python -m pytest -v
 
     - name: Check typing with pytype
       run: |
         export PYTHONPATH=/home/runner/.cache/pip
-        export PATH=/home/runner/.local/bin:$PATH
+        pip install ninja
         python -m pytype -P /home/runner/work/myrepo/myrepo/tests input /home/runner/work/myrepo/myrepo/tests
