@@ -30,6 +30,7 @@ jobs:
     - name: Install step
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
+        export PATH=/home/runner/.local/bin:$PATH
         pip install --user -r requirements.txt 
 
     - name: show local pip
