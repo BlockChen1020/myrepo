@@ -32,16 +32,10 @@ jobs:
       run: |
         pip install -r requirements.txt
 
-    - name: Add cache
+    - name: show cache
       if: steps.cache.outputs.cache-hit == 'true'
       run: |
-        export PATH=/home/runner/.cache/pip:PATH
-        export PYTHONPATH=/home/runner/.cache/pip
         ls -al /home/runner/.cache/pip
-
-    - name: show install list
-      run: |
-        pip list
 
     - name: Run python
       run: |
