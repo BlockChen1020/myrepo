@@ -36,6 +36,7 @@ jobs:
       if: steps.cache.outputs.cache-hit == 'true'
       run: |
         export PATH=/home/runner/.cache/pip:PATH
+        export PYTHONPATH=/home/runner/.cache/pip
 
     - name: show install list
       run: |
