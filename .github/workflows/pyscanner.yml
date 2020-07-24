@@ -31,6 +31,7 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
         export PATH=/home/runner/.local/bin:$PATH
+        export PYTHONPATH=/home/runner/.cache/pip
         pip install -t /home/runner/.cache/pip -r requirements.txt 
 
     - name: show local pip
