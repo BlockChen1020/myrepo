@@ -37,7 +37,8 @@ jobs:
       run: |
         ls -al /home/runner/.cache/pip
         echo $RUNNER_TOOL_CACHE
-        ls -al $RUNNER_TOOL_CACHE/Python
+        ls -al $RUNNER_TOOL_CACHE/Python/3.6.11
+        ls -al $RUNNER_TOOL_CACHE/PyPy
 
     - name: Run python
       run: |
