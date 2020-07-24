@@ -37,10 +37,15 @@ jobs:
       run: |
         export PATH=/home/runner/.cache/pip:PATH
         export PYTHONPATH=/home/runner/.cache/pip
+        ls -al /home/runner/.cache/pip
 
     - name: show install list
       run: |
         pip list
+
+    - name: Run python
+      run: |
+        python tests/test_fake.py
 
     - name: Lint with flake8
       run: |
