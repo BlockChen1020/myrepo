@@ -1,4 +1,4 @@
-flake8==3.8.1
+flake8==3.8.0
 pytest==5.4.3
 wheel==0.34.1
 pytype==2020.5.7

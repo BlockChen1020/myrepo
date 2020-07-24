@@ -31,13 +31,11 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
         export PATH=/home/runner/.local/bin:$PATH
-        pip install --user -r requirements.txt 
+        pip install -t /home/runner/.cache/pip -r requirements.txt 
 
     - name: show local pip
       run: |
         ls -al /home/runner/.cache/pip
-        ls -al /opt/hostedtoolcache/Python/3.6.11/x64/bin/python
-        ls -al /opt/hostedtoolcache/Python/3.6.11/x64
 
     - name: Run python
       run: |

@@ -4,5 +4,5 @@ print(dir(rasa))
 
 def test_fake():
     a = 1
-    print(a)
+    a = a + 1
     assert True is True
