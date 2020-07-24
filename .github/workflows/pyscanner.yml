@@ -30,7 +30,7 @@ jobs:
     - name: Install step
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
-        pip install -r requirements.txt
+        pip install -r requirements.txt --install-option="--prefix=/home/runner/.cache/pip"
 
     - name: show cache
       if: steps.cache.outputs.cache-hit == 'true'
@@ -39,6 +39,7 @@ jobs:
 
     - name: Run python
       run: |
+        export PYTHONPATH=/home/runner/.cache/pip
         python tests/test_fake.py
 
     - name: Lint with flake8
