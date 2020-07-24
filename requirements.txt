@@ -1,5 +1,5 @@
 flake8==3.8.1
 pytest==5.4.3
-wheel==0.34.2
+wheel==0.34.1
 pytype==2020.5.7
 rasa==1.8.3
