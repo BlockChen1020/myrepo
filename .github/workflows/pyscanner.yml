@@ -33,6 +33,7 @@ jobs:
         export PATH=/home/runner/.local/bin:$PATH
         export PYTHONPATH=/home/runner/.cache/pip
         pip install wheel
+        pip install ninja
         pip install -t /home/runner/.cache/pip -r requirements.txt 
 
     - name: show local pip
