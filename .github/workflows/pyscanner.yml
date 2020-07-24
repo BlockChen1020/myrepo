@@ -36,6 +36,7 @@ jobs:
     - name: show local pip
       run: |
         ls -al /home/runner/.cache/pip
+        python -c "import sys; print(sys.executable)"
         echo $RUNNER_TOOL_CACHE
         ls -al $RUNNER_TOOL_CACHE/Python/3.6.11
         ls -al $RUNNER_TOOL_CACHE/PyPy
