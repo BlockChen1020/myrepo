@@ -15,7 +15,7 @@ jobs:
         pwd
 
     - name: Set up Python 3.6
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
         python-version: 3.6
 
@@ -36,7 +36,8 @@ jobs:
     - name: show local pip
       run: |
         ls -al /home/runner/.cache/pip
-        ls -al /usr/lib/python3.6/dist-packages
+        echo $RUNNER_TOOL_CACHE
+        ls -al $RUNNER_TOOL_CACHE/Python
 
     - name: Run python
       run: |
