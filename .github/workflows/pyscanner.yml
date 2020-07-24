@@ -30,7 +30,7 @@ jobs:
     - name: Install step
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
-        pip install requirements.txt
+        pip install -r requirements.txt
 
     - name: Lint with flake8
       run: |
