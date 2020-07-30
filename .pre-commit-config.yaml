@@ -1,0 +1,24 @@
+repos:
+    -   repo: https://github.com/pre-commit/pre-commit-hooks
+        rev: v2.2.3
+        hooks:
+        -   id: flake8
+        -   id: detect-private-key
+        -   id: check-added-large-files
+        -   id: check-merge-conflict
+        -   id: check-json
+        -   id: check-yaml
+        -   id: check-case-conflict
+    -   repo: https://github.com/necaris/pre-commit-pyright
+        rev: '1.1.53'
+        hooks:
+        -   id: pyright
+    -   repo: local
+        hooks:
+        -   id: pytest
+            name: pytest
+            language: system
+            entry: pytest
+            pass_filenames: false
+            always_run: true
+            stages: [commit]
