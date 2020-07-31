@@ -55,6 +55,6 @@ jobs:
 
     - name: Check typing with pytype
       run: |
-        export PYTHONPATH=/home/runner/.cache/pip
         pip install ninja
+        export PYTHONPATH=/home/runner/.cache/pip
         python -m pytype -P /home/runner/work/myrepo/myrepo/tests input /home/runner/work/myrepo/myrepo/tests
