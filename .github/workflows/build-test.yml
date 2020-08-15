@@ -6,8 +6,8 @@ on:
 name: build-test
 
 jobs:
-  Build-stage:
-    runs-on: my-runner
+  Build:
+    runs-on: [self-hosted, linux, x64]
     steps:
     - name: CheckoutRepo
       uses: actions/checkout@master

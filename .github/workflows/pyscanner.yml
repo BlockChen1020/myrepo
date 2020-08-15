@@ -3,8 +3,8 @@ name: Lint with
 on: [push]
 
 jobs:
-  build:
-    runs-on: my-runner
+  scan:
+    runs-on: [self-hosted, linux, x64]
     steps:
     - name: CheckoutRepo
       uses: actions/checkout@master     
