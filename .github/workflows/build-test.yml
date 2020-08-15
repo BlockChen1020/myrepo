@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - 'build-test-env'
+      - 'build-test-env-*'
 
 name: build-test
 
