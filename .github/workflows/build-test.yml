@@ -1,7 +1,7 @@
 on:
   push:
-    branches: 
-    - master
+    tags:
+      - 'build-test-env'
 
 name: build-test
 
@@ -16,12 +16,10 @@ jobs:
         ls -al
           
     - name: DockerLogin
-      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      run: docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} ${{ secrets.HARBOR_ADDR }}
     - name: DockerBuild
-      env:
-        v: ${{ env.v }}
       run: |
-        v=`cat k8s/.VERSION`
-        echo ${v}
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/test:${v} -f k8s/test-dockerfile .
-        docker push ${{ secrets.DOCKER_USERNAME }}/test:${v}
+        
+        git_branch=
+        docker build -t ${{ secrets.HARBOR_ADDR }}/ciddtest/${branch#refs/heads/}:${GITHUB_SHA} -f k8s/test-dockerfile .
+        docker push ${{ secrets.HARBOR_ADDR }}/ciddtest/${branch#refs/heads/}:${GITHUB_SHA}
