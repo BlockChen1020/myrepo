@@ -20,8 +20,8 @@ jobs:
       id: vars
           
     - name: DockerLogin
-      run: docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} https://harbor.seasalt.ai
+      run: sudo docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} https://harbor.seasalt.ai
     - name: DockerBuild
       run: |
-        docker build -t harbor.seasalt.ai/ciddtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.gitsha }} -f k8s/test-dockerfile .
-        docker push harbor.seasalt.ai/ciddtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.gitsha }}
+        sudo docker build -t harbor.seasalt.ai/ciddtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.gitsha }} -f k8s/test-dockerfile .
+        sudo docker push harbor.seasalt.ai/ciddtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.gitsha }}
