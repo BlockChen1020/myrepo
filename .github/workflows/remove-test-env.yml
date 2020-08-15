@@ -4,7 +4,7 @@ on:
       # tag with suffix '-BTV' (build test environment)
       - '*-BTV'
 
-name: build-test
+name: Deltet-test-env
 
 jobs:
   Deltet-test-env:
