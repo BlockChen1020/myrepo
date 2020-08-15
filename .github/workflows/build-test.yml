@@ -18,8 +18,8 @@ jobs:
       id: extract_branch
           
     - name: DockerLogin
-      run: docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} ${{ secrets.HARBOR_ADDR }}
+      run: docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} https://harbor.seasalt.ai
     - name: DockerBuild
       run: |
-        docker build -t ${{ secrets.HARBOR_ADDR }}/ciddtest/${{ steps.extract_branch.outputs.branch }}:${GITHUB_SHA} -f k8s/test-dockerfile .
-        docker push ${{ secrets.HARBOR_ADDR }}/ciddtest/${{ steps.extract_branch.outputs.branch }}:${GITHUB_SHA}
+        docker build -t harbor.seasalt.ai/ciddtest/${{ steps.extract_branch.outputs.branch }}:${GITHUB_SHA} -f k8s/test-dockerfile .
+        docker push harbor.seasalt.ai/ciddtest/${{ steps.extract_branch.outputs.branch }}:${GITHUB_SHA}
