@@ -1,7 +1,7 @@
 on:
   push:
-    tags:
-      - 'build-test-env-*'
+    branch:
+      - '*-build-test-env'
 
 name: build-test
 
@@ -21,5 +21,5 @@ jobs:
       run: |
         
         git_branch=
-        docker build -t ${{ secrets.HARBOR_ADDR }}/ciddtest/${branch#refs/heads/}:${GITHUB_SHA} -f k8s/test-dockerfile .
-        docker push ${{ secrets.HARBOR_ADDR }}/ciddtest/${branch#refs/heads/}:${GITHUB_SHA}
+        docker build -t ${{ secrets.HARBOR_ADDR }}/ciddtest/${GITHUB_REF}:${GITHUB_SHA} -f k8s/test-dockerfile .
+        docker push ${{ secrets.HARBOR_ADDR }}/ciddtest/${GITHUB_REF}:${GITHUB_SHA}
