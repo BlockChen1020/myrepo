@@ -7,7 +7,7 @@ on:
 name: build-test
 
 jobs:
-  Build:
+  Build-test-env:
     runs-on: [self-hosted, linux, x64]
     steps:
     - name: CheckoutRepo

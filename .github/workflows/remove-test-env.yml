@@ -7,7 +7,7 @@ on:
 name: build-test
 
 jobs:
-  Build:
+  Deltet-test-env:
     runs-on: [self-hosted, linux, x64]
     steps:
     - name: CheckoutRepo
