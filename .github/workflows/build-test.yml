@@ -7,7 +7,7 @@ name: build-test
 
 jobs:
   Build-stage:
-    runs-on: ubuntu-latest
+    runs-on: my-runner
     steps:
     - name: CheckoutRepo
       uses: actions/checkout@master
