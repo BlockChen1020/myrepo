@@ -16,6 +16,7 @@ jobs:
     - name: Get branch information
       shell: bash
       run: |
+        whoami
         echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
         echo "::set-output name=tag_name::${GITHUB_REF#refs/*/}"
