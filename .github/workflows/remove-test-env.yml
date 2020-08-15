@@ -1,5 +1,5 @@
 on:
-  create:
+  delete:
     tags:
       # tag with suffix '-BTV' (build test environment)
       - '*-BTV'
@@ -18,11 +18,7 @@ jobs:
       run: |
         echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+        echo "::set-output name=tag_name::${GITHUB_REF#refs/*/}"
       id: vars
           
-    - name: DockerLogin
-      run: sudo docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} https://harbor.seasalt.ai
-    - name: DockerBuild
-      run: |
-        sudo docker build -t harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.sha_short }} -f k8s/test-dockerfile .
-        sudo docker push harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.sha_short }}
+
