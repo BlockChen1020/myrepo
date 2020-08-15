@@ -16,7 +16,6 @@ jobs:
     - name: Get branch information
       shell: bash
       run: |
-        whoami
         echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
         echo "::set-output name=tag_name::${GITHUB_REF#refs/*/}"
@@ -26,6 +25,7 @@ jobs:
       run: sudo docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} https://harbor.seasalt.ai
     - name: DockerBuild
       run: |
+        whoami
         sudo docker build -t harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.tag_name }}:${{ steps.vars.outputs.sha_short }} -f k8s/test-dockerfile .
         sudo docker push harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.tag_name }}:${{ steps.vars.outputs.sha_short }}
 
