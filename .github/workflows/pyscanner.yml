@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-
+    # self-hosted runner
     runs-on: testrunner
 
     steps:

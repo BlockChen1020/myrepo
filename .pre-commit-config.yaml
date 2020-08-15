@@ -1,0 +1,28 @@
+repos:
+    -   repo: https://github.com/pre-commit/pre-commit-hooks
+        rev: v2.2.3
+        hooks:
+        -   id: flake8
+            args: ["--count", "--max-complexity=10", "--max-line-length=127", "--statistics", "--ignore D200,D210,D400,W504", "--exclude=ngchat_plugins/tests,__init__.py,ngchat_api/backend/app/alembic/migrations/versions"]
+        -   id: check-added-large-files
+        -   id: check-case-conflict
+#    -   repo: https://github.com/necaris/pre-commit-pyright
+#        rev: '1.1.53'
+#        hooks:
+#        -   id: pyright
+#            args: ['stubPath=""']
+    -   repo: https://github.com/mattseymour/pre-commit-pytype
+        rev: '2019.05.31'
+        hooks:
+        -   id: pytype
+            args: []
+    -   repo: local
+        hooks:
+        -   id: pytest
+            name: pytest
+            language: system
+            entry: pytest
+            args: ["ngchat_api/backend/app/tests"]
+            pass_filenames: false
+            always_run: True
+            stages: [commit]
