@@ -21,4 +21,5 @@ jobs:
         echo "::set-output name=tag_name::${GITHUB_REF#refs/*/}"
       id: vars
           
-
+    - name: who am i
+      run: whoami
