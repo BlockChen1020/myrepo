@@ -12,14 +12,16 @@ jobs:
     - name: CheckoutRepo
       uses: actions/checkout@master
       
-    - name: Extract branch name
+    - name: Get branch information
       shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      id: extract_branch
+      run: |
+        echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        echo "::set-output name=gitsha::$(git rev-parse --short HEAD)"
+      id: vars
           
     - name: DockerLogin
       run: docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} https://harbor.seasalt.ai
     - name: DockerBuild
       run: |
-        docker build -t harbor.seasalt.ai/ciddtest/${{ steps.extract_branch.outputs.branch }}:$GITHUB_SHA -f k8s/test-dockerfile .
-        docker push harbor.seasalt.ai/ciddtest/${{ steps.extract_branch.outputs.branch }}:$GITHUB_SHA
+        docker build -t harbor.seasalt.ai/ciddtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.gitsha }} -f k8s/test-dockerfile .
+        docker push harbor.seasalt.ai/ciddtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.gitsha }}
