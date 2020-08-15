@@ -1,8 +1,8 @@
 on:
   create:
     tags:
-      # tag with suffix '-BTV' (build test environment)
-      - '*-BTV'
+      # tag with suffix '-btv' (build test environment)
+      - '*-btv'
 
 name: Build-test-env
 
