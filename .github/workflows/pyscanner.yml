@@ -4,8 +4,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: my-runner
     steps:
     - name: CheckoutRepo
       uses: actions/checkout@master     
