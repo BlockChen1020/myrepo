@@ -3,9 +3,8 @@ name: Lint with
 on: [push]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  scan:
+    runs-on: [self-hosted, linux, x64]
     steps:
     - name: CheckoutRepo
       uses: actions/checkout@master     
