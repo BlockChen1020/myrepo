@@ -28,8 +28,8 @@ jobs:
       run: sudo docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} https://harbor.seasalt.ai
     - name: DockerBuild
       run: |
-        sudo docker build -t harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.sha_short }} -f k8s/test-dockerfile .
-        sudo docker push harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.sha_short }}
+        sudo docker build -t harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.sha_short }}:${{ steps.vars.outputs.branch }} -f k8s/test-dockerfile .
+        sudo docker push harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.sha_short }}:${{ steps.vars.outputs.branch }}
 
     - name: Test kubectl
       run: kubectl get pod -n seasalt
