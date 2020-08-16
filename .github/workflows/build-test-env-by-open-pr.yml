@@ -1,7 +1,5 @@
 on:
   pull_request:
-    #branches:
-    #  - 'NGCHAT**bte'
     types: 
       - opened
       - synchronize
@@ -12,10 +10,14 @@ name: Build-test-env
 jobs:
   Build-test-env:
     runs-on: [self-hosted, linux, x64]
+    #if: endsWith(github.ref, '/bte')
     steps:
     - name: CheckoutRepo
       uses: actions/checkout@master
       
+    - name: Get GITHUB_REF
+      run: echo ${GITHUB_REF}
+
     - name: Get branch information
       shell: bash
       run: |
