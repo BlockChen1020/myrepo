@@ -16,7 +16,9 @@ jobs:
       uses: actions/checkout@master
     
     - name: get env
-      run: env
+      run: |
+        env
+        cat /home/runner/_work/_temp/_github_workflow/event.json
 
     - name: Get branch information
       shell: bash
