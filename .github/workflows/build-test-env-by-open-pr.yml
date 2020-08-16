@@ -1,8 +1,11 @@
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
-    # tag with suffix '-bte' (build test environment)
-    - '*-bte'
+    branches:
+      - '*-bte'
+    types: 
+      - opened
+      - synchronize
+      - reopened
 
 name: Build-test-env
 
