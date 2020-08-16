@@ -1,0 +1,24 @@
+on:
+  delete:
+    tags:
+      # tag with suffix '-bte' (build test environment)
+      - '*-bte'
+
+name: Deltet-test-env
+
+jobs:
+  Deltet-test-env:
+    runs-on: [self-hosted, linux, x64]
+    steps:
+    - name: CheckoutRepo
+      uses: actions/checkout@master
+      
+    - name: Get branch information
+      shell: bash
+      run: |
+        echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+        echo "::set-output name=tag_name::${GITHUB_REF#refs/*/}"
+      id: vars
+          
+

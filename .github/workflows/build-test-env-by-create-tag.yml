@@ -1,0 +1,32 @@
+on:
+  create:
+    tags:
+      # tag with suffix '-bte' (build test environment)
+      - '*-bte'
+
+name: Build-test-env
+
+jobs:
+  Build-test-env:
+    runs-on: [self-hosted, linux, x64]
+    steps:
+    - name: CheckoutRepo
+      uses: actions/checkout@master
+      
+    - name: Get branch information
+      shell: bash
+      run: |
+        echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+        echo "::set-output name=tag_name::${GITHUB_REF#refs/*/}"
+      id: vars
+          
+    - name: DockerLogin
+      run: sudo docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} https://harbor.seasalt.ai
+    - name: DockerBuild
+      run: |
+        sudo docker build -t harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.tag_name }}:${{ steps.vars.outputs.sha_short }} -f k8s/test-dockerfile .
+        sudo docker push harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.tag_name }}:${{ steps.vars.outputs.sha_short }}
+
+    - name: Test kubectl
+      run: kubectl get pod -n seasalt
