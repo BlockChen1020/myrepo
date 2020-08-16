@@ -1,7 +1,5 @@
 on:
   pull_request:
-    branches:
-      - 'NGCHAT**/bte'
     types: 
       - opened
       - synchronize
@@ -12,24 +10,31 @@ name: Build-test-env
 jobs:
   Build-test-env:
     runs-on: [self-hosted, linux, x64]
+    # github.head_ref is source branch
+    if: ${{endsWith(github.head_ref, '/bte')}} 
     steps:
     - name: CheckoutRepo
       uses: actions/checkout@master
-      
+    
+    - name: get env
+      run: |
+        env
+        cat /home/runner/_work/_temp/_github_workflow/event.json
+
     - name: Get branch information
       shell: bash
       run: |
-        echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-        echo "::set-output name=tag_name::${GITHUB_REF#refs/*/}"
+        echo "::set-output name=branch::$(echo $GITHUB_HEAD_REF|sed 's/\//_/g'|tr [:upper:] [:lower:])"
       id: vars
           
     - name: DockerLogin
       run: sudo docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} https://harbor.seasalt.ai
     - name: DockerBuild
       run: |
-        sudo docker build -t harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.sha_short }}:${{ steps.vars.outputs.branch }} -f k8s/test-dockerfile .
-        sudo docker push harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.sha_short }}:${{ steps.vars.outputs.branch }}
+        sed 's/aaaa/bbbb/p'
+        sudo docker build -t harbor.seasalt.ai/cicdtest/fake_image:${{ steps.vars.outputs.sha_short }} -f k8s/test-dockerfile .
+        sudo docker push harbor.seasalt.ai/cicdtest/fake_image:${{ steps.vars.outputs.sha_short }}
 
     - name: Test kubectl
       run: kubectl get pod -n seasalt
