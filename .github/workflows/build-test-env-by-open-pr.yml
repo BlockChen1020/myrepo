@@ -10,7 +10,8 @@ name: Build-test-env
 jobs:
   Build-test-env:
     runs-on: [self-hosted, linux, x64]
-    if: ${{endsWith(github.head_ref, '/bte')}}
+    # github.head_ref is source branch
+    if: ${{endsWith(github.head_ref, '/bte')}} 
     steps:
     - name: CheckoutRepo
       uses: actions/checkout@master
@@ -24,7 +25,7 @@ jobs:
       shell: bash
       run: |
         echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-        echo "::set-output name=branch::$(echo $GITHUB_HEAD_REF|sef 's/#//g' |sed 's/\//_/g'|tr [:upper:] [:lower:])"
+        echo "::set-output name=branch::$(echo $GITHUB_HEAD_REF|sed 's/\//_/g'|tr [:upper:] [:lower:])"
       id: vars
           
     - name: DockerLogin
@@ -32,8 +33,8 @@ jobs:
     - name: DockerBuild
       run: |
         sed 's/aaaa/bbbb/p'
-        sudo docker build -t harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.sha_short }} -f k8s/test-dockerfile .
-        sudo docker push harbor.seasalt.ai/cicdtest/${{ steps.vars.outputs.branch }}:${{ steps.vars.outputs.sha_short }}
+        sudo docker build -t harbor.seasalt.ai/cicdtest/fake_image:${{ steps.vars.outputs.sha_short }} -f k8s/test-dockerfile .
+        sudo docker push harbor.seasalt.ai/cicdtest/fake_image:${{ steps.vars.outputs.sha_short }}
 
     - name: Test kubectl
       run: kubectl get pod -n seasalt
