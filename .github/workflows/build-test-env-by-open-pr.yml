@@ -1,7 +1,7 @@
 on:
   pull_request:
-    branches:
-      - 'NGCHAT**bte'
+    #branches:
+    #  - 'NGCHAT**bte'
     types: 
       - opened
       - synchronize
