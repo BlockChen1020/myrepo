@@ -4,30 +4,31 @@ on:
       - opened
       - synchronize
       - reopened
+      - closed
 
-name: Build-test-env
+name: test-env-management-workflow
 
 jobs:
   Build-test-env:
     runs-on: [self-hosted, linux, x64]
     # github.head_ref is source branch
-    # the branch name ended with the flag '/bte',
-    # will trigger follow steps
-    if: ${{endsWith(github.head_ref, '/bte')}} 
+    # the branch name ended with the flag '/bte' will trigger follow steps
+    # bte means 'build test environment'
+    if: ${{endsWith(github.head_ref, '/bte') && github.event.action != 'closed' }} 
     steps:
     - name: CheckoutRepo
       uses: actions/checkout@master
     
-    - name: get env
-      run: |
-        env
-        cat /home/runner/_work/_temp/_github_workflow/event.json
+    #- name: get env
+    #  run: |
+    #    env
+    #    cat /home/runner/_work/_temp/_github_workflow/event.json
 
     - name: Get branch information
       shell: bash
       run: |
         echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-      #  echo "::set-output name=branch::$(echo $GITHUB_HEAD_REF|sed 's/\//_/g'|tr [:upper:] [:lower:])"
+        echo "::set-output name=branch::$(echo $GITHUB_HEAD_REF|sed 's/\//_/g'|tr [:upper:] [:lower:])"
       id: vars
           
     - name: DockerLogin
@@ -39,3 +40,25 @@ jobs:
 
     - name: Test kubectl
       run: kubectl get pod -n seasalt
+
+  Remove-test-env:
+    runs-on: [self-hosted, linux, x64]
+    if: ${{endsWith(github.head_ref, '/bte') && github.event.action == 'closed' }} 
+    steps:
+      - name: CheckoutRepo
+        uses: actions/checkout@master
+
+      - name: get env
+        run: |
+          env
+          cat /home/runner/_work/_temp/_github_workflow/event.json
+
+      - name: Get branch information
+        shell: bash
+        run: |
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "::set-output name=branch::$(echo $GITHUB_HEAD_REF|sed 's/\//_/g'|tr [:upper:] [:lower:])"
+        id: vars
+
+      - name: Test kubectl
+        run: kubectl get pod -n seasalt
