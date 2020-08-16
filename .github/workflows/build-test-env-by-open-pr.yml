@@ -11,6 +11,8 @@ jobs:
   Build-test-env:
     runs-on: [self-hosted, linux, x64]
     # github.head_ref is source branch
+    # the branch name ended with the flag '/bte',
+    # will trigger follow steps
     if: ${{endsWith(github.head_ref, '/bte')}} 
     steps:
     - name: CheckoutRepo
