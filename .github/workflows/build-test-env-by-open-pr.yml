@@ -24,7 +24,7 @@ jobs:
       shell: bash
       run: |
         echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-        echo "::set-output name=branch::$(echo $GITHUB_HEAD_REF| sed 's/\//_/g'|tr [:upper:] [:lower:])"
+        echo "::set-output name=branch::$(echo $GITHUB_HEAD_REF|sef 's/#//g' |sed 's/\//_/g'|tr [:upper:] [:lower:])"
       id: vars
           
     - name: DockerLogin
