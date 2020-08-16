@@ -10,7 +10,7 @@ name: Build-test-env
 jobs:
   Build-test-env:
     runs-on: [self-hosted, linux, x64]
-    if: endsWith(${{ env.GITHUB_HEAD_REF }}, '/bte')
+    if: ${{endsWith(env.GITHUB_HEAD_REF, '/bte')}}
     steps:
     - name: CheckoutRepo
       uses: actions/checkout@master
