@@ -1,8 +1,8 @@
 on:
   delete:
     tags:
-      # tag with suffix '-btv' (build test environment)
-      - '*-btv'
+      # tag with suffix '-bte' (build test environment)
+      - '*-bte'
 
 name: Deltet-test-env
 
