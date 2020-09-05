@@ -28,13 +28,6 @@ jobs:
         echo "::set-output name=branch::$(echo $GITHUB_HEAD_REF|sed 's/\//_/g'|tr [:upper:] [:lower:])"
       id: vars
           
-    - name: DockerLogin
-      run: sudo docker login -u ${{ secrets.HARBOR_USER }} -p ${{ secrets.HARBOR_PWD }} https://harbor.seasalt.ai
-    - name: DockerBuild
+    - name: ls
       run: |
-        sed 's/aaaa/bbbb/p'
-        sudo docker build -t harbor.seasalt.ai/cicdtest/fake_image:${{ steps.vars.outputs.sha_short }} -f k8s/test-dockerfile .
-        sudo docker push harbor.seasalt.ai/cicdtest/fake_image:${{ steps.vars.outputs.sha_short }}
-
-    - name: Test kubectl
-      run: kubectl get pod -n seasalt
+        ls -al
