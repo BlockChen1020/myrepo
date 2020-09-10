@@ -40,34 +40,6 @@ jobs:
     runs-on: [self-hosted, linux, x64]
     continue-on-error: true
     steps:
-    - name: Install step
-      if: steps.cache.outputs.cache-hit != 'true'
+    - name: echo
       run: |
-        export PATH=/home/runner/.local/bin:$PATH
-        export PYTHONPATH=/home/runner/.cache/pip
-        pip install wheel
-        pip install -t /home/runner/.cache/pip -r requirements.txt 
-
-    - name: show local pip
-      run: |
-        ls -al /home/runner/.cache/pip
-
-    - name: Run python
-      run: |
-        export PYTHONPATH=/home/runner/.cache/pip
-        python tests/test_fake.py
-
-    - name: Lint with flake8
-      run: |
-        export PYTHONPATH=/home/runner/.cache/pip
-        python -m flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-    - name: Test with pytest
-      run: |
-        export PYTHONPATH=/home/runner/.cache/pip
-        python -m pytest -v
-
-    - name: Check typing with pytype
-      run: |
-        pip install ninja
-        export PYTHONPATH=/home/runner/.cache/pip
-        python -m pytype -P /home/runner/work/myrepo/myrepo/tests input /home/runner/work/myrepo/myrepo/tests
+        echo pass
