@@ -38,6 +38,7 @@ jobs:
 
   Do:
     runs-on: [self-hosted, linux, x64]
+    continue-on-error: true
     steps:
     - name: Install step
       if: steps.cache.outputs.cache-hit != 'true'
