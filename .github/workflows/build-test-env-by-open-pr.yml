@@ -28,6 +28,7 @@ jobs:
     - name: show secrets
       run: |
         set -x
-        echo ${{ secrets.POSTGRES_PORT }}
+        port=${{ secrets.POSTGRES_PORT }}
+        echo $port
 
 
