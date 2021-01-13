@@ -5,7 +5,7 @@ name: test-env-management-workflow
 
 jobs:
   Build-test-env:
-    # runs-on: [self-hosted, linux, x64]
+    runs-on: ubuntu-latest 
     # github.head_ref is source branch
     # the branch name ended with the flag '/bte' will trigger follow steps
     # bte means 'build test environment'
