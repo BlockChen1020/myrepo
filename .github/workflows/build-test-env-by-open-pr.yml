@@ -8,7 +8,7 @@ jobs:
     # github.head_ref is source branch
     # the branch name ended with the flag '/bte' will trigger follow steps
     # bte means 'build test environment'
-    if: ${{endsWith(github.head_ref, '/bte') && github.event.action != 'closed' }} 
+#    if: ${{endsWith(github.head_ref, '/bte') && github.event.action != 'closed' }} 
     steps:
     - name: CheckoutRepo
       uses: actions/checkout@master
