@@ -2,6 +2,13 @@ on: push
 
 name: test-env-management-workflow
 
+env:
+  HELM_CHART_PATH=k8s/helm/test-seasalt
+  INSTALL_POSTGRES=true
+  PULLSECRET=harbor-pull-secret
+  LOGIN_FROM_DECKERCONF_ENABLE=true
+
+
 jobs:
   Build-test-env:
     runs-on: ubuntu-latest 
@@ -25,10 +32,15 @@ jobs:
         echo "::set-output name=branch::$(echo $GITHUB_HEAD_REF|sed 's/\//_/g'|tr [:upper:] [:lower:])"
       id: vars
           
-    - name: show secrets
+#    - name: show secrets
+#      run: |
+#        set -x
+#        port=${{ secrets.POSTGRES_PORT }}
+#        echo $port
+
+    - name: test env
       run: |
-        set -x
-        port=${{ secrets.POSTGRES_PORT }}
-        echo $port
-
-
+        echo $HELM_CHART_PATH
+        echo $INSTALL_POSTGRES
+        echo $PULLSECRET
+        echo $LOGIN_FROM_DECKERCONF_ENABLE
