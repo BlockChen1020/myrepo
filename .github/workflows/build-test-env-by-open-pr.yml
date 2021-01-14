@@ -3,10 +3,10 @@ on: push
 name: test-env-management-workflow
 
 env:
-  HELM_CHART_PATH=k8s/helm/test-seasalt
-  INSTALL_POSTGRES=true
-  PULLSECRET=harbor-pull-secret
-  LOGIN_FROM_DECKERCONF_ENABLE=true
+  HELM_CHART_PATH: k8s/helm/test-seasalt
+  INSTALL_POSTGRES: true
+  PULLSECRET: harbor-pull-secret
+  LOGIN_FROM_DECKERCONF_ENABLE: true
 
 
 jobs:
